@@ -1,0 +1,10 @@
+:PROPERTIES:
+:ID:       c4e272a4-85c6-468b-88be-0fd64079921e
+:END:
+#+title: Packer
+#+date: [2023-11-20 Mon 14:58]
+#+startup: overview
+
+https://www.packer.io/
+
+Tool to automate image builds

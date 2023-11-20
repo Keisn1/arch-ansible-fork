@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       43ecb209-402f-4611-90f5-866492663fe1
+:END:
+#+title: Vagrant
+#+date: [2023-11-20 Mon 15:03]
+#+startup: overview
+
+https://www.vagrantup.com/
+reproducing development environments
