@@ -1,0 +1,21 @@
+:PROPERTIES:
+:ID:       430ad7fb-2084-4d2d-9f41-da7da553394d
+:END:
+#+title: disksetup role
+#+date: [2023-11-20 Mon 19:16]
+#+startup: overview
+
+
+* partitioning flow
+- Standardized set of Ansible roles to which partitioning is delegated
+- invokes user selectable flow, expects it to set things up
+- Everyone can write its own flow
+* play 1: should we use a partitioning flow
+- decide if flow or manual partitioning flow
+** set_facts
+- [[id:88514005-7dd3-406c-9498-78ce1d8715d6][partitioning flow]] variable to yes
+*** [[id:a5eb978f-cbf8-4f4b-bf75-e23a2d03f903][Ansible set_facts module]]
+* Play 2: invoke [[id:88514005-7dd3-406c-9498-78ce1d8715d6][partitioning flow]]
+- if-else to figure out which playbook to execute
+** [[id:2cf0eeb4-3780-4806-9dc1-b8adb3112719][flow playbook]]
+** [[id:d9f62420-027c-4564-8ddf-4d1dcd44084d][manual playbook]]

@@ -1,0 +1,20 @@
+:PROPERTIES:
+:ID:       58d23a64-5bb3-41fd-90b8-d3427d58206c
+:END:
+#+title: Format the partition
+#+date: [2023-11-22 Wed 19:09]
+#+startup: overview
+
+[[id:07554aa6-5b26-4ce8-9cec-2141ae2d0384][Ansible filesystem module]]
+
+Creates the filesystem
+* dev =
+[[file:~/workspace/arch-ansible-fork/ansible/roles/disksetup/mbr_singlepart/partitioning/defaults/main.yaml::partitioning_priv_root_device_node: "/dev/sda1"]]
+partitioning_priv_root_device_node
+* fstype = ext4
+* ops= -O ^64bit
+** Chat Gipiti
+^64bit: The caret (^) symbol before 64bit means "exclude" in this context. So, -O ^64bit is excluding the 64-bit feature from the filesystem being created.
+The 64bit feature in ext4 filesystem allows the filesystem to support larger files and use extents for better performance. However, there might be situations where you want to create a filesystem without the 64-bit feature, possibly for compatibility reasons with certain systems or devices that do not support it.
+
+https://www.kernel.org/doc/html/latest/admin-guide/ext4.html

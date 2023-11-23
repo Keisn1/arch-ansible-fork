@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       4f8229b5-8dfd-4818-b7bc-f3172da6a9ec
+:END:
+#+title: proxy role
+#+date: [2023-11-22 Wed 20:40]
+#+startup: overview

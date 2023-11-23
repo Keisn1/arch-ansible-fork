@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       d9f62420-027c-4564-8ddf-4d1dcd44084d
+:END:
+#+title: manual playbook
+#+date: [2023-11-20 Mon 20:22]
+#+startup: overview

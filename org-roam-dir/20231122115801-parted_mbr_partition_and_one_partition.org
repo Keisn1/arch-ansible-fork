@@ -1,0 +1,57 @@
+:PROPERTIES:
+:ID:       87ead942-09b9-4ef2-b332-1c5f0d47471b
+:END:
+#+title: parted mbr partition and one partition
+#+date: [2023-11-22 Wed 11:58]
+#+startup: overview
+
+[[id:3774e782-01c6-41dd-a7e2-85be9029169b][Ansible parted module]]
+
+* device: /dev/sda1
+~{{ (partitioning_priv_root_device_node | split_partition_number)[0] }}~
+** partitioning_priv_root_device_node
+- "/dev/sda1" [[file:~/workspace/arch-ansible-fork/ansible/roles/disksetup/mbr_singlepart/partitioning/defaults/main.yaml::partitioning_root_mount_point: "/mnt"][default.yaml]]
+** split_partition_number
+:PROPERTIES:
+:ID: accf5a69-f4d7-4af2-86c8-e78de990c2ee
+:END:
+- filter function [[file:~/workspace/arch-ansible-fork/ansible/filter_plugins/utilities.py::def split_partition_number(self, devnode):][Filter_module]]
+- Matches things like /dev/mmcblk0p1 or /dev/sda1
+- [0] returns device, [1] returns part_number
+#+begin_src python :results output
+import re
+def split_partition_number(devnode):
+    # Matches things like /dev/mmcblk0p1 or /dev/sda1
+    match = re.search(r"(?:(\d+)p)?(\d+)$", devnode)
+    if match is None:
+        raise ValueError(
+            "Cannot extract a partition number from device node {}".format(devnode)
+        )
+    part = int(match.group(2))
+    dev = "{}{}".format(devnode[: -len(match.group(0))], match.group(1) or "")
+    return (dev, part)
+
+print(split_partition_number("/dev/mmcblk0p1"))
+print(split_partition_number("/dev/sda1"))
+print(split_partition_number("/dev/loop0"))
+#+end_src
+
+#+RESULTS:
+: ('/dev/mmcblk0', 1)
+: ('/dev/sda', 1)
+: ('/dev/loop', 0)
+* state
+- present, meaning to be created
+* label
+- msdos ([[id:0b6b3778-c2ce-4e89-855c-59356822d497][MBR partition table]]) = mbr
+- disk label type
+* number
+- number of partition
+* flag
+https://www.gnu.org/software/parted/manual/html_node/set.html
+- 'boot'
+  - (Mac, MS-DOS, PC98) should be enabled if you want to boot off the partition.
+  - The semantics vary between disk labels.
+  - For MS-DOS disk labels, only one partition can be bootable.
+  - If you are installing LILO on a partition that partition must be bootable.
+  - For PC98 disk labels, all ext2 partitions must be bootable (this is enforced by Parted).

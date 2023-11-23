@@ -1,0 +1,17 @@
+:PROPERTIES:
+:ID:       fb4e7cc1-89c4-43ef-b46f-d8de0260b319
+:END:
+#+title: pacstrap role
+#+date: [2023-11-22 Wed 20:30]
+#+startup: overview
+
+[[file:~/workspace/arch-ansible-fork/ansible/roles/pacstrap/][pacstrap role directory]]
+
+has dependency role [[id:4f8229b5-8dfd-4818-b7bc-f3172da6a9ec][proxy role]] , only affects if using vagrant/or packer
+
+[[id:c438a56f-d0d4-4e14-8381-c567643c24bd][Ansible command module]]
+run with variables
+packages: [[file:~/workspace/arch-ansible-fork/ansible/roles/base_packages/defaults/main.yaml::base_packages_list:]["{{ base_packages_list }}"]]
+chroot:  e.g. [[file:~/workspace/arch-ansible-fork/ansible/roles/disksetup/mbr_singlepart/partitioning/defaults/main.yaml::partitioning_root_mount_point: "/mnt"]["{{ partitioning_root_mount_point }}"]]
+
+~pacstrap {{ chroot | quote }} --needed {% for pkg in packages %} {{ pkg | quote }} {% endfor %}~

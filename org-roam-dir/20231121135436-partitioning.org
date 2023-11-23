@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       b549b0ca-41df-4ab3-819d-77fa0e0cf5f1
+:END:
+#+title: Partitioning
+#+date: [2023-11-21 Tue 13:54]
+#+startup: overview
+
+* [[id:a790b7a2-a401-4d1e-ac41-7898cccf9587][mbr singlepart partitioning]]
+* [[id:184e42ed-cd84-4c29-9867-3b784672741b][gpt singlepart partitioning]]

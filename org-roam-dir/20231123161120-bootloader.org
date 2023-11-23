@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       e1004130-9010-4688-962a-7bf7ce8f1517
+:END:
+#+title: bootloader
+#+date: [2023-11-23 Thu 16:11]
+#+startup: overview
+
+[[file:~/workspace/arch-ansible-fork/ansible/roles/disksetup/mbr_singlepart/bootloader/meta/main.yaml::dependencies:]]
+- executes [[id:feb11ade-e843-4d0e-b10b-685150a4180e][syslinux role]] with variables "ipl = yes"

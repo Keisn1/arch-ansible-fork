@@ -1,0 +1,14 @@
+---
+- name: Example playbook to create a directory
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create a directory
+      ansible.builtin.file:
+        path: /tmp/example_directory
+        state: directory
+      register: directory_created
+
+    - name: Display attributes of the created directory
+      debug:
+        var: directory_created['changed']

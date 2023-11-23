@@ -1,0 +1,38 @@
+:PROPERTIES:
+:ID:       39a7e5ee-9609-43a2-9042-340c18e3fd6d
+:END:
+#+title: genfstab role
+#+date: [2023-11-22 Wed 21:20]
+#+startup: overview
+
+[[file:~/workspace/arch-ansible-fork/ansible/roles/genfstab/]]
+
+* var
+:PROPERTIES:
+:ID:       a36f67b2-7de2-4f4f-95c6-a7cf2001bdb1
+:END:
+- fstab: "{{ chroot | quote }}/etc/fstab"
+  - e.g. "/mnt/etc/fstab"
+- "chroot" : {{ "[[file:~/workspace/arch-ansible-fork/ansible/roles/disksetup/mbr_singlepart/partitioning/defaults/main.yaml::partitioning_root_mount_point: "/mnt"][e.g. partitioning_root_mount_point]]" }}
+  - set inside dependency of [[id:8a8cc204-dc2d-4fb1-aee7-4c317ccf9e62][Postpartioning role]]
+  - e.g. /mnt
+
+* shell command
+- [[id:e82abead-4c68-4aa5-864d-352dff8c1270][set -e]]
+- [[id:c92b54bc-686b-4a2b-a165-12f9331d4b61][set -o pipefail]]
+- [[id:59abe5a2-2744-468c-a54c-f3630c2569ef][-f (bash)]]
+- [[id:04d230e0-4195-4746-a3bf-2dc536c339f3][genfstab]]
+#+begin_src shell
+set -e
+
+set -o pipefail
+{
+  if [ -f {{ fstab }} ];
+  then cat {{ fstab }}; fi
+  genfstab -U {{ chroot | quote }} > {{ fstab }}
+  cat {{ fstab }}
+} | sort | uniq -u
+#+end_src
+- [[id:538efb12-0b44-433c-ac9e-651eced90ace][-U - Use UUIDs for source identifiers (shortcut for -t UUID).]]
+- ~genfstab -U "/mnt" > "/mnt/etc/fstab"~
+- ~cat "/mnt/etc/fstab/" | sort | uniq -u~

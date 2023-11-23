@@ -1,0 +1,10 @@
+:PROPERTIES:
+:ID:       afdd6dd9-ceec-46e6-bb11-d070e9fa10ea
+:END:
+#+title: configure role
+#+date: [2023-11-23 Thu 16:54]
+#+startup: overview
+
+[[file:~/workspace/arch-ansible-fork/ansible/roles/configure/][role directory]]
+* dependency
+[[id:a148f18a-35bd-4071-992a-553308dcffd6][hostname role]]

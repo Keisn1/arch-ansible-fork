@@ -1,0 +1,78 @@
+:PROPERTIES:
+:ID:       442e7389-2ef7-49ca-a495-077b37f9e862
+:END:
+#+title: Environment
+#+date: [2023-11-20 Mon 16:11]
+#+startup: overview
+
+- Used in [[file:~/workspace/arch-ansible-fork/ansible/site.yaml::environment: "{{ global_proxy_env }}"][site.yml]]
+- set in [[file:~/workspace/arch-ansible-fork/ansible/group_vars/all/00-default.yaml::global_proxy_env_:][00_default.yaml]]
+- Using [[id:3fc3f15a-6614-47c1-ae08-9a3069efeefb][Ansible filters]]
+
+* Example here
+#+begin_src conf
+global_proxy_env_:
+  http_proxy: "{{ http_proxy | default(omit, true) }}"
+  https_proxy: "{{ https_proxy | default(omit, true) }}"
+  no_proxy: "{{ no_proxy | default(omit, true) }}"
+global_proxy_env : "{{ global_proxy_env_ | dict2items |
+  selectattr('value', 'ne', omit) | list | items2dict }}"
+#+end_src
+* defautl(omit, true)
+** default values
+- providing default value
+- If you want to use the default value when variables evaluate to *false* or an *empty string* you have to set the second parameter to true
+#+begin_src conf
+{{ lookup('env', 'MY_USER') | default('admin', true) }}
+#+end_src
+** making variables optional
+- by default ansible requires values for all variables in a templated expression
+- can make them optional
+  - use system default, and control value for others
+- need to set to *special default variable* ~omit~
+#+begin_src conf
+- name: Touch files with an optional mode
+  ansible.builtin.file:
+    dest: "{{ item.path }}"
+    state: touch
+    mode: "{{ item.mode | default(omit) }}"
+  loop:
+    - path: /tmp/foo
+    - path: /tmp/bar
+    - path: /tmp/baz
+      mode: "0444"
+#+end_src
+- for /tmp/foo and /tmp/bar, the system determines the umask
+- value for "mode" is not sent
+** putting together
+- e.g. ~"{{ http_proxy | default(omit, true) }}"~
+  - if http_proxy is "" or false (because of keyword 'true'), the default will be omit
+
+* dict2items
+[[https://docs.ansible.com/ansible/latest/collections/ansible/builtin/dict2items_filter.html#ansible-collections-ansible-builtin-dict2items-filter][docs dict2items]]
+- turns dict into list of dictionaries
+#+begin_src python
+global_proxy_env_= {
+    http_proxy: "{{ http_proxy | default(omit, true) }}",
+    https_proxy: "{{ https_proxy | default(omit, true) }}",
+    no_proxy: "{{ no_proxy | default(omit, true) }}",
+    }
+#+end_src
+#+begin_src python
+# into
+[
+    {"key": "http_proxy", "value": "{{ http_proxy | default(omit, true) }}"},
+    {"key": "https_proxy", "value": "{{ https_proxy | default(omit, true) }}"},
+    {"key": "no_proxy", "value": "{{ no_proxy | default(omit, true) }}"},
+]
+#+end_src
+* selectattr('value', 'ne', omit)
+- [[https://docs.ansible.com/ansible/latest/playbook_guide/complex_data_manipulation.html][Ansible manipulating data]]
+- https://www.howtouselinux.com/post/ansible-selectattr
+  - selectattr is a filter plugin in Ansible that allows you to select a subset of elements from a list of dictionaries based on the value of a particular attribute.
+- jinja 2 functionality for list comprehension
+- compares value to omit
+* list
+* items2dict
+[[https://docs.ansible.com/ansible/latest/collections/ansible/builtin/items2dict_filter.html#ansible-collections-ansible-builtin-items2dict-filter][items2dict docs]]
+- list of dictionaries into one dictionary

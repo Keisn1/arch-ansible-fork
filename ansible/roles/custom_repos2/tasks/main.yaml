@@ -1,0 +1,5 @@
+- name: Check state variable
+  vars:
+    _state: "{{ state | default('present', True) }}"
+  ansible.builtin.debug:
+    msg: System {{ _state }}

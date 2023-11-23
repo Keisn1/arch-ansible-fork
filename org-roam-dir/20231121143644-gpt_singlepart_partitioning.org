@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       184e42ed-cd84-4c29-9867-3b784672741b
+:END:
+#+title: gpt singlepart partitioning
+#+date: [2023-11-21 Tue 14:36]
+#+startup: overview
+* Create EFI system
+**

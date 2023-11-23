@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID:       98e22eff-616b-4345-8308-dbce99f992dd
+:END:
+#+title: Clean and reboot
+#+date: [2023-11-20 Mon 16:10]
+#+startup: overview
+
+* [[id:442e7389-2ef7-49ca-a495-077b37f9e862][Environment]]

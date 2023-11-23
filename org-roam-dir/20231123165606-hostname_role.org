@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       a148f18a-35bd-4071-992a-553308dcffd6
+:END:
+#+title: hostname role
+#+date: [2023-11-23 Thu 16:56]
+#+startup: overview

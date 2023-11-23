@@ -1,0 +1,15 @@
+:PROPERTIES:
+:ID:       a790b7a2-a401-4d1e-ac41-7898cccf9587
+:END:
+#+title: mbr singlepart partitioning
+#+date: [2023-11-21 Tue 13:55]
+#+startup: overview
+
+- [[file:~/workspace/arch-ansible-fork/ansible/roles/disksetup/mbr_singlepart/][role directory]]
+
+- a single disk is formatted with a single, large root partition using a [[id:0b6b3778-c2ce-4e89-855c-59356822d497][MBR partition table]]
+- The partition will use 32-bit ext4 (required for Syslinux to work) and Syslinux as the bootloader.
+- The IPL of that disk will be replaced to load Syslinux at boot;
+* Play 1: [[id:87ead942-09b9-4ef2-b332-1c5f0d47471b][parted mbr partition and one partition]]
+* Play 2: [[id:58d23a64-5bb3-41fd-90b8-d3427d58206c][Format the partition]]
+* Play 3: [[id:9729f452-4176-41f0-b92d-00ceb0dd489f][Mount the root partition]]

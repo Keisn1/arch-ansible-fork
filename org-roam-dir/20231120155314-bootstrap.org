@@ -1,0 +1,15 @@
+:PROPERTIES:
+:ID:       3c421bcc-91d3-40ef-a47b-65c546cb2e2b
+:END:
+#+title: Install the base system
+#+date: [2023-11-20 Mon 15:53]
+#+startup: overview
+
+- run against system running with Arch Linux installation media
+
+* [[id:442e7389-2ef7-49ca-a495-077b37f9e862][Environment]]
+* Roles to run
+** [[id:6cb99f19-9a29-4031-bfec-f2eb959058cb][Custom repos role]]
+** [[id:430ad7fb-2084-4d2d-9f41-da7da553394d][disksetup role]]
+** [[id:afdd6dd9-ceec-46e6-bb11-d070e9fa10ea][configure role]]
+* post_tasks = reboot

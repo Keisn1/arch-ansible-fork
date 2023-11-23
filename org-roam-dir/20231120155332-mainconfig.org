@@ -1,0 +1,10 @@
+:PROPERTIES:
+:ID:       72e89774-c8c7-4b1a-bad3-7d347e8773f6
+:END:
+#+title: configure installed system
+#+date: [2023-11-20 Mon 15:53]
+#+startup: overview
+
+- run against installed base system
+
+* [[id:442e7389-2ef7-49ca-a495-077b37f9e862][Environment]]

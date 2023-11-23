@@ -1,0 +1,37 @@
+:PROPERTIES:
+:ID:       2cf0eeb4-3780-4806-9dc1-b8adb3112719
+:END:
+#+title: flow playbook
+#+date: [2023-11-20 Mon 20:22]
+#+startup: overview
+
+* Play 1: Gather api
+** Include API_role
+- includes the role defined in ~disksetup_roles_prefix/api~
+  - disksetup_roles_prefix is default variable set inside
+    - [[file:~/workspace/arch-ansible-fork/ansible/roles/disksetup/defaults/main.yaml]]
+  - default: disksetup/mbr_singlepart/api
+  - used to determine which version of partioning flow API is exposed by the flow
+*** example API (disksetup/mbr_singlepart)
+- including variables ~dir~ and ~name~
+- also variable ~apiVersion~ set
+**** tasks
+#+begin_src conf
+- include_vars:
+    dir: .
+    name: "{{ namespace }}"
+#+end_src
+
+**** vars
+#+begin_src conf
+apiVersion: partitioning.arch-ansible/v1
+#+end_src
+** Set variable ~namespace~ to "partitioning_api"
+* Play 2: check API version
+- asserting that apiVersion from Play 1 is inside ~disksetup_supported_apis~ defined in defaults
+  - [[file:~/workspace/arch-ansible-fork/ansible/roles/disksetup/defaults/main.yaml]]
+  -
+* Play 3: [[id:b549b0ca-41df-4ab3-819d-77fa0e0cf5f1][Partitioning]]
+* Play 4: [[id:e7cf31d7-dd8d-46b4-8ad2-49d8ef38e464][base_packages role]]
+* Play 5: [[id:8a8cc204-dc2d-4fb1-aee7-4c317ccf9e62][Postpartioning]]
+* Play 6: [[id:e1004130-9010-4688-962a-7bf7ce8f1517][bootloader]]

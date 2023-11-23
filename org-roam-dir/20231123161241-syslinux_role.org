@@ -1,0 +1,48 @@
+:PROPERTIES:
+:ID:       feb11ade-e843-4d0e-b10b-685150a4180e
+:END:
+#+title: syslinux role 
+#+date: [2023-11-23 Thu 16:12]
+#+startup: overview
+
+[[file:~/workspace/arch-ansible-fork/ansible/roles/syslinux/]]
+
+* Plays
+** Play 1: Creates syslinux directory
+[[id:a18c13cb-1551-474e-9bef-33bd3a55d083][Ansible file module]]
+** Play 2: copies syslinux files to /boot
+[[id:20b2428a-afd0-49ea-86bb-bb3ace6dbd00][Ansible shell module]]
+- copy files
+** Play 3: Installs syslinux
+[[id:c438a56f-d0d4-4e14-8381-c567643c24bd][Ansible command module]]
+- arch-chroot into the system
+** Play 4: Maps "/" and "/boot" to their devic node
+[[id:20b2428a-afd0-49ea-86bb-bb3ace6dbd00][Ansible shell module]]
+- ~awk '$2 == "'"$(stat -c %m {{ item | quote }})"'" { print $1; }' /etc/mtab~
+- [[id:b683cf22-acab-472b-a901-f90c2719eaa7][Ansible loops]]
+** Play 5: "Get root's UUID"
+[[id:c438a56f-d0d4-4e14-8381-c567643c24bd][Ansible command module]]
+- ~lsblk -n -o UUID {{ _mounts.results[0].stdout_lines[0] | quote }}~
+** Play 6: List installed kernels
+[[id:7f211911-2a61-465a-b0e3-09171c1ffd2d][Ansible find module]]
+** Play 7: List installed initramfs
+[[id:7f211911-2a61-465a-b0e3-09171c1ffd2d][Ansible find module]]
+** Play 8: Copy syslinux configuration
+[[id:a484d6c0-e374-4df5-b0e8-bd8a7f456822][Ansible template module]]
+[[file:~/workspace/arch-ansible-fork/ansible/roles/syslinux/tasks/main.yaml::- name: Copy syslinux configuration][the play]]
+- the template placed inside [[file:~/workspace/arch-ansible-fork/ansible/roles/syslinux/templates/][templates/syslinux.cfg.j2]] is getting hydrated with variable in _vars_ and copied to _dest_ with mode _mode_
+** Play 9: Install IPL
+[[id:c438a56f-d0d4-4e14-8381-c567643c24bd][Ansible command module]]
+- [[id:22973904-4da9-4936-afb6-76c4d4ed92a5][dd - convert and copy a file]]
+**** if=FILE read from FILE instead of stdin
+- if={{ partitioning_root_mount_point | quote }}/usr/lib/syslinux/bios/mbr.bin
+**** of=FILE write to FILE instead of stdout
+**** bs=BYTES read and  write  up to BYTES bytes at a time (default: 512); overrides ibs and obs
+**** count=N copy only N input blocks
+*** when: ipl | default(False)
+- ipl needs to be parsed to a bool, therefore default(False)
+- being called from bootloader with ipl='yes' this should evaluate to true (in mbr_single)
+
+https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html#conditionals-based-on-variables
+* dependencies
+[[id:fb4e7cc1-89c4-43ef-b46f-d8de0260b319][pacstrap role]]

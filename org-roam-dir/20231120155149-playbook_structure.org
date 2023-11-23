@@ -1,0 +1,11 @@
+:PROPERTIES:
+:ID:       6af86901-7fac-4f67-992f-665357d350c8
+:END:
+#+title: Playbook structure
+#+date: [2023-11-20 Mon 15:51]
+#+startup: overview
+
+* Plays
+** [[id:3c421bcc-91d3-40ef-a47b-65c546cb2e2b][Install the base system]]
+** [[id:72e89774-c8c7-4b1a-bad3-7d347e8773f6][configure installed system]]
+** [[id:98e22eff-616b-4345-8308-dbce99f992dd][Clean and reboot]]

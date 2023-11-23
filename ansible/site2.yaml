@@ -1,0 +1,12 @@
+- name: Install the base system
+  hosts: localhost
+  connection: local
+  environment: "{{ global_proxy_env }}"
+  tasks:
+    - import_role:
+        name: disksetup2
+
+  # tasks:
+  #   - name: Print global_proxy_env
+  #     ansible.builtin.debug:
+  #       msg: System {{ global_proxy_env }} has gateway {{ ansible_default_ipv4.gateway }}

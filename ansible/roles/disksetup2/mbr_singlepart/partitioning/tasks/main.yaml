@@ -1,0 +1,3 @@
+- name: Create a MBR partition table and one partition
+  ansible.builtin.debug:
+    msg: "{{ 'after we ran our role' | replace_comma }}"

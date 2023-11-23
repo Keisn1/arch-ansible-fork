@@ -1,0 +1,16 @@
+:PROPERTIES:
+:ID:       e7cf31d7-dd8d-46b4-8ad2-49d8ef38e464
+:END:
+#+title: base_packages role
+#+date: [2023-11-22 Wed 20:21]
+#+startup: overview
+
+[[file:~/workspace/arch-ansible-fork/ansible/roles/base_packages/]]
+
+* default
+- ansible adds the variable to the play
+[[id:73643ca5-f212-4c14-a15b-edeaa23acad6][adding default variables]]
+* meta
+- declare a role dependency which pulls in [[id:fb4e7cc1-89c4-43ef-b46f-d8de0260b319][pacstrap role]]
+- [[id:dea7be65-8dce-49cb-8dbd-75c6f91cada0][Ansible role dependencies]]
+- the role that lists the dependencies gets executed _after_ its dependencies, in this case [[id:e7cf31d7-dd8d-46b4-8ad2-49d8ef38e464][base_packages role]]

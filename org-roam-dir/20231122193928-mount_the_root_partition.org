@@ -1,0 +1,18 @@
+:PROPERTIES:
+:ID:       9729f452-4176-41f0-b92d-00ceb0dd489f
+:END:
+#+title: Mount the root partition
+#+date: [2023-11-22 Wed 19:39]
+#+startup: overview
+
+[[id:805921f8-62d2-4e1f-a410-5ce2357d4cc0][Ansible mount module]]
+
+* state = mounted
+- actively mounted and configured in /[[id:6a2ddda0-8770-444c-9752-021bf277dbca][fstab]]/
+* src = {{ partitioning_priv_root_device_node }}
+- e.g. /dev/sda1
+* path = /mnt
+[[file:~/workspace/arch-ansible-fork/ansible/roles/disksetup/mbr_singlepart/partitioning/defaults/main.yaml::partitioning_root_mount_point: "/mnt"][mount path mbr single partition]]
+* fstype = ext4
+* opts
+rw,relatime

@@ -1,0 +1,11 @@
+:PROPERTIES:
+:ID:       8a8cc204-dc2d-4fb1-aee7-4c317ccf9e62
+:END:
+#+title: Postpartioning role
+#+date: [2023-11-22 Wed 21:20]
+#+startup: overview
+
+[[file:~/workspace/arch-ansible-fork/ansible/roles/disksetup/mbr_singlepart/postpartitioning/]]
+
+dependency [[id:39a7e5ee-9609-43a2-9042-340c18e3fd6d][genfstab role]]
+with var "chroot" : {{ "partitioning_root_mount_point" }}

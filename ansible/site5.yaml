@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Print a message
+      ansible.builtin.debug:
+        msg: "before we run our role"
+
+    - name: Print a message after filter applied
+      ansible.builtin.debug:
+        msg: "{{ 'after we ran our role' | split_partition_number }}"
