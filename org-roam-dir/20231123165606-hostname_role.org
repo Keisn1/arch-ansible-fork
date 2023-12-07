@@ -4,3 +4,9 @@
 #+title: hostname role
 #+date: [2023-11-23 Thu 16:56]
 #+startup: overview
+* variables in default
+[[file:~/workspace/arch-ansible-fork/ansible/roles/hostname/defaults/main.yaml::hostname_hostname: archlinux][default_variables]]
+* play1: set hostname in /etc/hostname
+[[id:38ecabb9-212b-4cb9-9711-6a782e7024fb][Ansible copy module]]
+* play2: set hostname in /etc/hosts
+[[id:970c35a7-cf88-4873-9010-9b4c9e3e766b][Ansible lineinfile module]]

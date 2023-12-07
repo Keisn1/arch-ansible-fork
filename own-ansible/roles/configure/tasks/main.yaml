@@ -1,0 +1,28 @@
+- name: Enable services on installed system
+  command: arch-chroot {{ partitioning_root_mount_point | quote }}
+    systemctl enable {{ item | quote }}
+  loop:
+    - sshd
+    - NetworkManager
+
+- name: Create root's .ssh
+  file:
+    state: directory
+    path:  "{{ partitioning_root_mount_point }}/root/.ssh/"
+
+- name: Check for root's autorized keys
+  stat:
+    path: /root/.ssh/authorized_keys
+  register: _root_auth_keys
+
+- name: Copy root's authorized keys
+  copy:
+    remote_src: yes
+    src: /root/.ssh/authorized_keys
+    dest: "{{ partitioning_root_mount_point }}/root/.ssh/"
+    mode: "preserve"
+  when: _root_auth_keys.stat.exists == true
+
+- name: Copy ssh host keys
+  shell: cp -vp /etc/ssh/ssh_host_*_key /etc/ssh/ssh_host_*_key.pub
+      {{ partitioning_root_mount_point | quote }}/etc/ssh/

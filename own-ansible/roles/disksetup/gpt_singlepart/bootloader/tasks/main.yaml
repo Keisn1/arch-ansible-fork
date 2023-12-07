@@ -1,0 +1,33 @@
+- name: Create /boot/efi mountpoint
+  file:
+    state: directory
+    name: "{{ partitioning_root_mount_point }}/boot/EFI"
+    recurse: yes
+
+- name: Mount the ESP
+  mount:
+    state: mounted
+    src: "{{ partitioning_priv_esp_device_node }}"
+    path: "{{ partitioning_root_mount_point }}/boot/EFI"
+    fstype: vfat
+
+- name: Install GRUB2 package
+  import_role:
+    name: pacstrap
+  vars:
+    chroot: "{{ partitioning_root_mount_point }}"
+    packages:
+      - grub
+      - efibootmgr
+
+- name: Install GRUB2
+  command: arch-chroot {{ partitioning_root_mount_point | quote }} /usr/bin/grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+
+- name: Make GRUB2 the default bootloader
+  shell: |
+    cd {{ partitioning_root_mount_point | quote }}/boot/EFI/
+    mkdir Boot
+    cp arch/grubx64.efi Boot/Bootx64.efi
+
+- name: Generate GRUB2 configuration file
+  command: arch-chroot {{ partitioning_root_mount_point | quote }} /usr/bin/grub-mkconfig -o /boot/grub/grub.cfg

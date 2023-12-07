@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       694a171a-1b88-4cfa-b0a6-712fd5415a5f
+:END:
+#+title: wireless role
+#+date: [2023-11-30 Thu 12:11]
+#+startup: overview

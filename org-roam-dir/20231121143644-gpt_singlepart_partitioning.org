@@ -4,5 +4,11 @@
 #+title: gpt singlepart partitioning
 #+date: [2023-11-21 Tue 14:36]
 #+startup: overview
-* Create EFI system
-**
+
+
+* Play1: [[id:c8bed743-5d9c-4b39-abe1-982550a651d2][Create EFI partition]]
+[[id:3774e782-01c6-41dd-a7e2-85be9029169b][Ansible parted module]]
+* Play2: [[id:be655ef7-c320-4122-a718-3c01bd2f0a0c][Create root partition]]
+* Play3: [[id:d9fbf498-be1e-45be-88c9-0364bb74bfbb][Enumerate created partitions]]
+* Play4: [[id:79b950f6-28bd-423f-97ce-32067fa7c693][Assign partitions to variables]]
+* Play5: [[id:e3508df9-3e6b-4b41-a144-44cf7e4a9def][Format the ESP]]

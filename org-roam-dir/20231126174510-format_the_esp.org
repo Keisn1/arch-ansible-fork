@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:       e3508df9-3e6b-4b41-a144-44cf7e4a9def
+:END:
+#+title: Format the ESP
+#+date: [2023-11-26 Sun 17:45]
+#+startup: overview
+
+fstype: vfat
+see mkfs.vfat man page

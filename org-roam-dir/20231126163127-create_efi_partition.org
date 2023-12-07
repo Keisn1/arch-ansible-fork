@@ -1,0 +1,22 @@
+:PROPERTIES:
+:ID:       c8bed743-5d9c-4b39-abe1-982550a651d2
+:END:
+#+title: Create EFI partition
+#+date: [2023-11-26 Sun 16:31]
+#+startup: overview
+
+uses [[id:3774e782-01c6-41dd-a7e2-85be9029169b][Ansible parted module]]
+* device:
+"{{ partitioning_priv_device_node }}"
+[[file:~/workspace/arch-ansible-fork/own-ansible/roles/disksetup/gpt_singlepart/partitioning/defaults/main.yaml::partitioning_priv_device_node: "/dev/sda"][partitioning_priv_device_node: "/dev/sda"]]
+* state: present = meaning to be created
+* label: gpt
+- Disk label type or [[id:c49e7295-c68c-4feb-9b71-d7a094400a52][Partition table]]
+- a ~name~ must be specified for a "gpt" partition table
+* number: 1
+* name: ESP
+* part_start: "{{ 1024 * 1024 }}B"
+- counting in bytes
+- 1024 x 1024 Bytes = 1 048 576 bytes ~ 1MB
+* part_end: "{{ partitioning_priv_esp_size | int  + 1024 * 1024 - 1 }}B"
+[[file:~/workspace/arch-ansible-fork/own-ansible/roles/disksetup/gpt_singlepart/partitioning/defaults/main.yaml::partitioning_priv_esp_size: "{{ 512 * 1024 * 1024 }}"][partitioning_priv_esp_size: "{{ 512 * 1024 * 1024 }}"]]

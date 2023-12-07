@@ -5,7 +5,6 @@
 #+date: [2023-11-20 Mon 19:16]
 #+startup: overview
 
-
 * partitioning flow
 - Standardized set of Ansible roles to which partitioning is delegated
 - invokes user selectable flow, expects it to set things up

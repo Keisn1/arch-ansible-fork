@@ -1,0 +1,10 @@
+:PROPERTIES:
+:ID:       79b950f6-28bd-423f-97ce-32067fa7c693
+:END:
+#+title: Assign partitions to variables
+#+date: [2023-11-26 Sun 17:44]
+#+startup: overview
+
+[[id:a5eb978f-cbf8-4f4b-bf75-e23a2d03f903][Ansible set_facts module]]
+- partitioning_priv_esp_device_node
+- partitioning_priv_root_device_node

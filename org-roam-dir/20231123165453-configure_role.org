@@ -8,3 +8,25 @@
 [[file:~/workspace/arch-ansible-fork/ansible/roles/configure/][role directory]]
 * dependency
 [[id:a148f18a-35bd-4071-992a-553308dcffd6][hostname role]]
+* play1: Enable services on installed system
+[[id:c438a56f-d0d4-4e14-8381-c567643c24bd][Ansible command module]]
+- arch-chroot into the system
+- systemctl enable items (sshd, NetworkManager)
+* play2: Create root's .ssh
+[[id:a18c13cb-1551-474e-9bef-33bd3a55d083][Ansible file module]]
+* play3: Check for root's autorized keys
+- Note taken on [2023-11-24 Fri 10:20] \\
+  Questionable security with ssh into root account
+[[id:03140068-0761-4252-9367-22eaa6777e6d][Ansible stat module]]
+- retrieves status of /root/.ssh/authorized_keys
+- questionable strategy to ssh into root account
+* play4: Copy authorized keys
+[[id:38ecabb9-212b-4cb9-9711-6a782e7024fb][Ansible copy module]]
+from /root/.ssh/authorized_keys to the destination (same place)
+* play5: Copy ssh host keys
+[[id:20b2428a-afd0-49ea-86bb-bb3ace6dbd00][Ansible shell module]]
+#+begin_src shell
+cp -vp /etc/ssh/ssh_host_*_key /etc/ssh/ssh_host_*_key.pub
+{{ partitioning_root_mount_point | quote }}/etc/ssh/
+#+end_src
+- verbose copy with preserving mode,ownership,timestamp

@@ -1,0 +1,29 @@
+:PROPERTIES:
+:ID:       2a392d0d-61be-494e-a661-313f77e867e3
+:END:
+#+title: custom repos present task
+#+date: [2023-11-26 Sun 15:57]
+#+startup: overview
+
+
+
+* Present plays
+- copy stuff
+- include repository definitions in pacman.conf
+- add custom to mirror list
+* Play1: Copy custom repositories definitions
+[[id:38ecabb9-212b-4cb9-9711-6a782e7024fb][Ansible copy module]]
+- loops over custom_repos list
+- copies
+- hydrates ~Server~ and ~SigLevel~ with item.server and item.sigLevel
+[[file:~/workspace/arch-ansible-fork/own-ansible/roles/custom_repos/defaults/main.yaml::Add extra repositories (i.e. like `core` and `community`.][Variable custom_repos_servers and custom_repos_list]]
+- list of dictionaries
+
+* Play2: Include repository definitions in pacman.conf
+[[id:970c35a7-cf88-4873-9010-9b4c9e3e766b][Ansible lineinfile module]]
+- loops over custom-repos-list and change lines in pacman.conf
+- uses insertberfore
+  -
+
+* Play3: Add custom servers
+- same as play3 for /ect/pacman.d/mirrorlist

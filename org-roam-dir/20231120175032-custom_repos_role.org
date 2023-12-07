@@ -6,19 +6,20 @@
 #+startup: overview
 
 [[file:~/workspace/arch-ansible-fork/ansible/roles/custom_repos/]]
-* Plays
-** Check state variable
+* Plays 1: Check state variable
 - is present by default
 - variable to build the right playbook from
-** Dispatch to proper custom_repos implementation
+- present meaning if
+
+* Play2: Dispatch to proper custom_repos implementation
 - depending of state variable, get the right playbook
-** Sync databases
+- either imports
+  - [[id:2a392d0d-61be-494e-a661-313f77e867e3][custom repos present task]]
+  - [[id:b7c93ab9-78a4-49cb-8bdc-cfa87abe46ca][custom_repos_absent_task]]
+
+* Play3: Sync databases - update pacman
 - pacman update
--
-* Present plays
-- copy stuff
-- include repository definitions in pacman.conf
-- add custom to mirror list
+
 * Absent plays
 ** remove custom repos
 - [[id:a18c13cb-1551-474e-9bef-33bd3a55d083][Ansible file module]]

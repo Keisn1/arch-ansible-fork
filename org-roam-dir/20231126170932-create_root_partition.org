@@ -1,0 +1,20 @@
+:PROPERTIES:
+:ID:       be655ef7-c320-4122-a718-3c01bd2f0a0c
+:END:
+#+title: Create root partition
+#+date: [2023-11-26 Sun 17:09]
+#+startup: overview
+
+[[id:3774e782-01c6-41dd-a7e2-85be9029169b][Ansible parted module]]
+Have a look at EFI [[id:c8bed743-5d9c-4b39-abe1-982550a651d2][Create EFI partition]]
+[[file:~/workspace/arch-ansible-fork/own-ansible/roles/disksetup/gpt_singlepart/partitioning/defaults/main.yaml::partitioning_priv_esp_size: "{{ 512 * 1024 * 1024 }}"][partitioning_priv_esp_size: "{{ 512 * 1024 * 1024 }}"]]
+#+begin_src conf
+- name: Create the root partition
+  parted:
+    device: "{{ partitioning_priv_device_node }}"
+    state: present
+    label: gpt
+    number: 2
+    name: root
+    part_start: "{{ partitioning_priv_esp_size | int  + 1024 * 1024 }}B"
+#+end_src

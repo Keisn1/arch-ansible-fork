@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       37cd5644-8f7b-4ca3-b81f-e3cd3231f3e1
+:END:
+#+title: Set locale
+#+date: [2023-11-30 Thu 12:24]
+#+startup: overview

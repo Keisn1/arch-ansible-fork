@@ -1,0 +1,136 @@
+- name: Create the EFI partition
+  parted:
+    device: "{{ partitioning_priv_device_node }}"
+    state: present
+    label: gpt
+    number: 1
+    name: ESP
+    part_start: "{{ 1024 * 1024 }}B"
+    part_end: "{{ partitioning_priv_esp_size | int  + 1024 * 1024 - 1 }}B"
+    flags:
+      - esp
+  changed_when: no
+  register: efi_partition
+
+- name: Create the working partition
+  parted:
+    device: "{{ partitioning_priv_device_node }}"
+    state: present
+    label: gpt
+    number: 2
+    name: working_partition
+    fs_type: ext4
+    part_start: "{{ partitioning_priv_esp_size | int  + 1024 * 1024 }}B"
+    part_end: "{{ partitioning_priv_esp_size | int  + 1024 * 1024 + 1024 * 1024 * 6144 - 1}}B"
+    flags:
+      - lvm
+  changed_when: no
+
+- name: Create backup partition
+  parted:
+    device: "{{ partitioning_priv_device_node }}"
+    state: present
+    label: gpt
+    number: 3
+    name: backup_partition
+    fs_type: ext4
+    part_start: "{{ partitioning_priv_esp_size | int  + 1024 * 1024 + 1024 * 1024 * 6144 }}B"
+  changed_when: no
+
+- name: Enumerate created partitions
+  shell: lsblk -n -o PATH {{ partitioning_priv_device_node | quote }} | tail -n +2
+  register: _partitions
+  changed_when: no
+  check_mode: false
+
+- name: Assign partitions to variables
+  set_fact:
+    partitioning_priv_esp_device_node: "{{ _partitions.stdout_lines[0] }}"
+    partitioning_priv_working_partition_device_node: "{{ _partitions.stdout_lines[1] }}"
+    partitioning_priv_backup_device_node: "{{ _partitions.stdout_lines[2] }}"
+
+- name: Format the ESP
+  command: "mkfs.fat -F32 {{ partitioning_priv_esp_device_node }}"
+  changed_when: no
+  when: efi_partition.changed
+
+- name: Format the backup partition
+  command: "mkfs.ext4 {{ partitioning_priv_backup_device_node }}"
+  changed_when: no
+
+- name: Create a PV and VG for root
+  lvg:
+    vg: "{{ partitioning_priv_vg_name }}"
+    pvs:
+      - "{{ partitioning_priv_working_partition_device_node }}"
+  changed_when: no
+
+- name: Create a root LV
+  lvol:
+    state: present
+    vg: "{{ partitioning_priv_vg_name }}"
+    lv: "{{ partitioning_priv_lv_name_root }}"
+    size: "5G"
+  register: create_root_lv
+
+- name: Create a home LV
+  lvol:
+    state: present
+    vg: "{{ partitioning_priv_vg_name }}"
+    lv: "{{ partitioning_priv_lv_name_home }}"
+    size: "100%FREE"
+  when: create_root_lv.changed
+
+- name: Store root PV name
+  set_fact:
+    partitioning_priv_root_lv_node: >-
+      /dev/{{ partitioning_priv_vg_name }}/{{ partitioning_priv_lv_name_root }}
+
+- name: Store home PV name
+  set_fact:
+    partitioning_priv_home_lv_node: >-
+      /dev/{{ partitioning_priv_vg_name }}/{{ partitioning_priv_lv_name_home }}
+
+- name: Format the root partition
+  filesystem:
+    dev:  "{{ partitioning_priv_root_lv_node }}"
+    fstype: ext4
+
+- name: Mount the root partition
+  mount:
+    state: mounted
+    src: "{{ partitioning_priv_root_lv_node }}"
+    path: "{{ partitioning_root_mount_point }}"
+    fstype: ext4
+    opts: rw,relatime
+
+- name: Format the home partition
+  filesystem:
+    dev:  "{{ partitioning_priv_home_lv_node }}"
+    fstype: ext4
+
+- name: Create /home
+  file:
+    state: directory
+    path: "{{ partitioning_root_mount_point }}/home"
+
+- name: Mount the home partition
+  mount:
+    state: mounted
+    src: "{{ partitioning_priv_home_lv_node }}"
+    path: "{{ partitioning_home_mount_point }}"
+    fstype: ext4
+    opts: rw,relatime
+
+# - name: Create /boot/efi mountpoint
+#   file:
+#     state: directory
+#     name: "{{ partitioning_root_mount_point }}/boot/EFI"
+#     recurse: yes
+
+# - name: Mount the ESP
+#   mount:
+#     state: mounted
+#     src: "{{ partitioning_priv_esp_device_node }}"
+#     path: "{{ partitioning_root_mount_point }}/boot/EFI"
+#     fstype: vfat

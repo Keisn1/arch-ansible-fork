@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       b0a04572-282f-4b72-ad93-c0be60a91727
+:END:
+#+title: Generate locale
+#+date: [2023-11-30 Thu 12:24]
+#+startup: overview

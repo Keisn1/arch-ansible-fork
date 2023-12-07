@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       58bfaf56-7af5-4f34-9759-2a596daa808b
+:END:
+#+title: Set keymap
+#+date: [2023-11-30 Thu 12:24]
+#+startup: overview

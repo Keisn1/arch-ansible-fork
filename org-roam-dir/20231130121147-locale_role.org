@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       134ce56f-e2cd-4da6-81e2-1ab79d3ca558
+:END:
+#+title: Locale role
+#+date: [2023-11-30 Thu 12:11]
+#+startup: overview

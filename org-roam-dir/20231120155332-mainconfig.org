@@ -8,3 +8,9 @@
 - run against installed base system
 
 * [[id:442e7389-2ef7-49ca-a495-077b37f9e862][Environment]]
+* tags: mainconfig
+* [[id:a148f18a-35bd-4071-992a-553308dcffd6][hostname role]]
+* [[id:6cb99f19-9a29-4031-bfec-f2eb959058cb][Custom repos role]]
+* [[id:340d517d-97b5-4545-bfa9-d812b89f64af][Users role]]
+* [[id:134ce56f-e2cd-4da6-81e2-1ab79d3ca558][Locale role]]
+* [[id:694a171a-1b88-4cfa-b0a6-712fd5415a5f][wireless role]]

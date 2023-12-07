@@ -1,0 +1,16 @@
+- name: Install the base system
+  hosts: all
+  tags:
+    - bootstrap
+    - never
+  tasks:
+    - import_role:
+        name: custom_repos
+    - import_role:
+        name: disksetup
+    - import_role:
+        name: configure
+  post_tasks:
+   - name: Reboot into the system
+     tags: reboot
+     reboot:

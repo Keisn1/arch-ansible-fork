@@ -1,0 +1,16 @@
+:PROPERTIES:
+:ID:       d9fbf498-be1e-45be-88c9-0364bb74bfbb
+:END:
+#+title: Enumerate created partitions
+#+date: [2023-11-26 Sun 17:13]
+#+startup: overview
+
+uses [[id:20b2428a-afd0-49ea-86bb-bb3ace6dbd00][Ansible shell module]]
+
+* shell command
+[[id:e307acc6-2948-431a-bdf9-b93912f2c869][lsblk]] [options] [device...]
+[[id:0e65ba25-a936-47f7-a2a9-d8becec52792][tail]] [[id:521cfbe1-1760-4709-9eb1-c939504aaadd][-n, --lines=[+]NUM]]
+~lsblk -n -o PATH {{ partitioning_priv_device_node | quote }} | tail -n +2~
+- output column [[file:~/workspace/arch-ansible-fork/own-ansible/roles/disksetup/gpt_singlepart/partitioning/defaults/main.yaml::partitioning_priv_device_node: "/dev/sda"][partitioning_priv_device_node: "/dev/sda"]]
+* register  _partitions
+- Name of variable that will contain task status and module return data.

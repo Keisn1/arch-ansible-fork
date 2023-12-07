@@ -30,7 +30,6 @@ apiVersion: partitioning.arch-ansible/v1
 * Play 2: check API version
 - asserting that apiVersion from Play 1 is inside ~disksetup_supported_apis~ defined in defaults
   - [[file:~/workspace/arch-ansible-fork/ansible/roles/disksetup/defaults/main.yaml]]
-  -
 * Play 3: [[id:b549b0ca-41df-4ab3-819d-77fa0e0cf5f1][Partitioning]]
 * Play 4: [[id:e7cf31d7-dd8d-46b4-8ad2-49d8ef38e464][base_packages role]]
 * Play 5: [[id:8a8cc204-dc2d-4fb1-aee7-4c317ccf9e62][Postpartioning]]

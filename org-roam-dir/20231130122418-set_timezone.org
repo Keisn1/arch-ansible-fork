@@ -1,0 +1,12 @@
+:PROPERTIES:
+:ID:       21a66ed0-a325-42d0-8112-6e676fd55f96
+:END:
+#+title: Set timezone
+#+date: [2023-11-30 Thu 12:24]
+#+startup: overview
+
+[[id:1f80e82d-c013-4f02-ab32-e8d3751845da][Ansible timezone module]]
+- name set to [[file:~/workspace/arch-ansible-fork/ansible/roles/locale/defaults/main.yaml::locale_timezone: Europe/Rome][Europe/Paris]]
+- hwclock set to UTC
+- locale set to en_US.UTF-8
+- keymap layout to us
